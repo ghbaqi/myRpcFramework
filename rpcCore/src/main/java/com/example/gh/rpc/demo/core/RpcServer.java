@@ -7,11 +7,8 @@ import com.example.gh.rpc.demo.register.ServiceRegistry;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,15 +27,23 @@ import lombok.extern.slf4j.Slf4j;
  * @Date : 2019/3/17 18:26
  * @Description :
  */
-@Component
+//@Component
 @Slf4j
 public class RpcServer implements ApplicationContextAware, InitializingBean {
 
-    @Value("${rpc.server.address}")
+    //    @Value("${rpc.server.address}")
     private String serverAddress;
 
-    @Autowired
+    //    @Autowired
     private ServiceRegistry serviceRegistry;
+
+
+    public RpcServer(String serverAddress, ServiceRegistry serviceRegistry) {
+        this.serverAddress = serverAddress;
+        this.serviceRegistry = serviceRegistry;
+        System.out.println("RpcServer serverAddress =  " + serverAddress);
+        System.out.println("RpcServer serviceRegistry =  " + serviceRegistry);
+    }
 
     /**
      * key : 接口名
@@ -50,9 +55,12 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
     @Override
     public void setApplicationContext(ApplicationContext context) throws BeansException {
 
+        System.out.println("RpcServer  ApplicationContext " + context);
+
         // 获取 RpcService
         Map<String, Object> serviceBeanMap = context.getBeansWithAnnotation(RpcService.class);
         if (serviceBeanMap.isEmpty()) {
+            log.warn("沒有检测到 rpc service ");
             return;
         }
 
@@ -69,6 +77,8 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
+
+        System.out.println("RpcServer afterPropertiesSet");
 
         NioEventLoopGroup boss = new NioEventLoopGroup();
         NioEventLoopGroup work = new NioEventLoopGroup();
@@ -113,7 +123,6 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
             //            boss.shutdownGracefully();
             //            log.info("rpc server shut down 222");
         }
-
 
     }
 }

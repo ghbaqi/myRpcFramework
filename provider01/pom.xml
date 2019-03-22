@@ -33,6 +33,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.example.gh.rpc</groupId>
+            <artifactId>rpc-core</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <!--自己的 rpc 服务接口-->
         <dependency>
             <groupId>com.example.gh</groupId>

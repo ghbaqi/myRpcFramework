@@ -8,8 +8,6 @@ import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.ZooKeeper;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
@@ -24,16 +22,18 @@ import lombok.extern.slf4j.Slf4j;
  * 服务注册
  */
 
-@Component
+//@Component
 @Slf4j
 public class ServiceRegistry {
 
     private CountDownLatch latch = new CountDownLatch(1);
 
-    @Value("${zookeeper.address}")
+    //    @Value("${zookeeper.address}")
     private String zookeeperAddress;
 
-    public ServiceRegistry() {
+
+    public ServiceRegistry(String zookeeperAddress) {
+        this.zookeeperAddress = zookeeperAddress;
     }
 
     public void register(String data) {
