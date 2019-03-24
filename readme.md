@@ -19,12 +19,14 @@
             <artifactId>rpc-core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>`
-3. 服务端 service 添加 @RpcService 注解
-4. 客户端 
+1. 添加你自己的暴露服务的接口包 ，配置 zookeeper.address 和 rpc.server.address 
+3. 服务端在启动类上添加 **@EnableRpc** 注解启用 rpc 服务，  需要暴露的 service 添加 @RpcService 注解
+4. 客户端在启动类上添加 **@EnableRpc** 注解 ， 注入 RpcProxy ， 创建代理对象 eg : `IUserService userService = rpcProxy.create(IUserService.class);`  
 
 ### 需进一步完善的地方 ###
 1. 添加服务端软负载均衡
 2. 序列化方式可配置
-3. 代理策略优化 cglib , jdk 代理
+3. 代理优化 cglib , jdk 代理 ， 代理创建方式优化， 希望通过注解的方式注入即可
 4. 服务端心跳检测
 5. 超时 和 重试策略
+6. 支持多个微服务  ， 给每个微服务起名称

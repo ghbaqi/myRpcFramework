@@ -80,6 +80,11 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
 
         System.out.println("RpcServer afterPropertiesSet");
 
+        if (serverAddress == null || serverAddress.equals("")) {
+            log.warn("rpc server 为空 , 是消费者");
+            return;
+        }
+
         NioEventLoopGroup boss = new NioEventLoopGroup();
         NioEventLoopGroup work = new NioEventLoopGroup();
 

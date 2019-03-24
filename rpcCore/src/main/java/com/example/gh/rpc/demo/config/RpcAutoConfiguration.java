@@ -1,6 +1,8 @@
 package com.example.gh.rpc.demo.config;
 
+import com.example.gh.rpc.demo.core.RpcProxy;
 import com.example.gh.rpc.demo.core.RpcServer;
+import com.example.gh.rpc.demo.core.ServiceDiscovery;
 import com.example.gh.rpc.demo.register.ServiceRegistry;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -41,18 +43,14 @@ public class RpcAutoConfiguration {
     }
 
 
-//    @Bean
-//    public RpcServer rpcServer() {
-//        return new RpcServer();
-//    }
-//
-//    @Bean
-//    public ServiceRegistry serviceRegistry() {
-//        return new ServiceRegistry();
-//    }
+    @Bean
+    public ServiceDiscovery serviceDiscovery() {
+        return new ServiceDiscovery(zookeeperAddress);
+    }
 
 
-
-
-
+    @Bean
+    public RpcProxy rpcProxy() {
+        return new RpcProxy(zookeeperAddress, serviceDiscovery());
+    }
 }

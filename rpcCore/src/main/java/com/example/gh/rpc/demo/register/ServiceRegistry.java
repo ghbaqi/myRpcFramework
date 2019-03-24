@@ -50,7 +50,7 @@ public class ServiceRegistry {
 
         byte[] bytes = data.getBytes();
         try {
-            String path = zk.create(Constant.RPC_ROOT_PATH, bytes, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
+            String path = zk.create(Constant.RPC_DATA_PATH, bytes, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
             System.out.println("createNode path = " + path + " , data = " + data);
         } catch (KeeperException e) {
             e.printStackTrace();

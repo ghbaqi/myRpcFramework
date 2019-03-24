@@ -24,6 +24,7 @@
         <module>rpcCore</module>
         <module>provider01</module>
         <module>rpcApi</module>
+        <module>consumer01</module>
     </modules>
 
 
